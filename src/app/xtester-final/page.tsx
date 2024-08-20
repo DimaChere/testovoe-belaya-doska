@@ -25,9 +25,8 @@ interface Spell {
 }
 
 export default function TesterShootingSettings() {
-    const canvasRef = useRef<HTMLCanvasElement>(null); // Ссылка на элемент canvas
+    const canvasRef = useRef<HTMLCanvasElement>(null);
     const [items, setItems] = useState<Item[]>([
-        // Начальное состояние двух кругов
         {
             x: 200,
             y: 200,
@@ -55,9 +54,9 @@ export default function TesterShootingSettings() {
             spellColor: "rgb(0,0,250)",
         },
     ]);
-    const itemsRef = useRef<Item[]>(items); // Ссылка на массив items для сохранения актуального состояния
-    const [hitCounts, setHitCounts] = useState<number[]>([0, 0]); // Счетчики попаданий по каждому кругу
-    const mousePosition = useMousePosition(); // Позиция мыши
+    const itemsRef = useRef<Item[]>(items);
+    const [hitCounts, setHitCounts] = useState<number[]>([0, 0]);
+    const mousePosition = useMousePosition();
     const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(
         null
     );
@@ -79,6 +78,7 @@ export default function TesterShootingSettings() {
         setItems(updatedItems);
     };
 
+    // Обработка изменения цвета заклинаний для определенного круга
     const handleSpellColorChange = (index: number, newColor: string) => {
         const updatedItems = [...itemsRef.current];
         updatedItems[index].spellColor = newColor;
@@ -106,6 +106,7 @@ export default function TesterShootingSettings() {
         [mousePosition]
     );
 
+    // Обработка клика по canvas
     const handleCanvasClick = useCallback((event: MouseEvent) => {
         const { offsetX, offsetY } = event;
         const clickedIndex = itemsRef.current.findIndex(
@@ -151,12 +152,10 @@ export default function TesterShootingSettings() {
 
             // Обработка каждого круга
             itemsRef.current.forEach((item, index) => {
-                // Проверка на столкновение с курсором мыши
                 if (checkCursorCollision(item)) {
-                    item.direction *= -1; // Меняем направление движения
+                    item.direction *= -1;
                 }
 
-                // Обновление положения круга
                 item.y += item.speed * item.direction;
 
                 // Проверка на столкновение с краями канваса
@@ -198,7 +197,7 @@ export default function TesterShootingSettings() {
                             newHitCounts[targetIndex]++;
                             return newHitCounts;
                         });
-                        return false; // Убираем заклинание после попадания
+                        return false;
                     }
 
                     // Убираем заклинание, если оно вышло за пределы канваса
@@ -213,7 +212,7 @@ export default function TesterShootingSettings() {
                     ctx.fill();
                     ctx.closePath();
 
-                    return true; // Оставляем заклинание на экране
+                    return true;
                 });
             });
 

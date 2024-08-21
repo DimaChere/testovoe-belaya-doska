@@ -56,7 +56,7 @@ export default function TesterShootingSettings() {
     ]);
     const itemsRef = useRef<Item[]>(items);
     const [hitCounts, setHitCounts] = useState<number[]>([0, 0]);
-    const mousePosition = useMousePosition();
+    const mousePosition = useMousePosition(canvasRef);
     const [selectedItemIndex, setSelectedItemIndex] = useState<number | null>(
         null
     );

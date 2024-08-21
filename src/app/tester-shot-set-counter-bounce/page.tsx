@@ -57,7 +57,7 @@ export default function TesterShootingSettings() {
     ]);
     const itemsRef = useRef<Item[]>(items); // Ссылка на массив items для сохранения актуального состояния
     const [hitCounts, setHitCounts] = useState<number[]>([0, 0]); // Счетчики попаданий по каждому кругу
-    const mousePosition = useMousePosition(); // Позиция мыши
+    const mousePosition = useMousePosition(canvasRef); // Позиция мыши
 
     useEffect(() => {
         // Синхронизация актуального состояния items с itemsRef
